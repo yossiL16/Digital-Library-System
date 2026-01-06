@@ -1,4 +1,4 @@
-
+// Problem 1: Digital Library System
 
 class MediaItem{
     constructor(title, year, genre){
@@ -78,3 +78,62 @@ class Library{
 // console.log(lib.listByGenre("Sci-Fi"));
 
 
+
+//Problem 2 (Extra): Banking System with Transactions
+
+
+class BankAccount{
+    constructor(owner, balance){
+        this.owner = owner;
+        this.balance = balance;
+    }
+
+    deposit(amount){
+        this.balance += amount;
+    }
+
+    withdraw(amount){
+        if(amount > this.balance){
+            return "There is not enough money in the account"  
+        }
+        this.balance -= amount;
+    }
+}
+
+
+class Bank{
+    constructor(){
+    this.accounts = []
+    }
+
+    addAccount(account){
+        this.accounts.push(account)
+    }
+
+    transfer(fromName, toName, amount){
+        for(const account1 of this.accounts){
+            if(account1.owner === fromName){
+                for(let account2 of this.accounts){
+                    if(account2.owner === toName){
+                        if(account2.balance >= amount){
+                            account1.balance += amount
+                            account2.balance -= amount
+                            return "Transfer completed successfully."
+                        } else{
+                            return "There is not enough money in the account for the transfer."
+                        }
+                    } else{
+                        return `account ${toName} not found`
+                    }
+                }
+            } else{
+                return `account ${fromName} not found`
+            }
+        }
+    }
+
+    showBalances(){
+        for (const account of this.accounts)
+            console.log(account.owner, account.balance);      
+    }
+}
